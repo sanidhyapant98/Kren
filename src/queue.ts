@@ -1,4 +1,4 @@
-type Task = {
+export type Task = {
 	id: string;
 	payload: unknown;
 	retries: number;
@@ -8,7 +8,7 @@ type Task = {
 	createdAt: number;
 };
 
-type TaskState =
+export type TaskState =
 	| "queued"
 	| "running"
 	| "completed"
@@ -16,25 +16,25 @@ type TaskState =
 	| "cancelled"
 	| "timed_out";
 
-class Queue {
+export class Queue {
 	private tasks: Task[] = [];
 	private maxSize: number;
 
 	constructor(maxSize = 100) {
-        this.maxSize = maxSize
-    };
+		this.maxSize = maxSize;
+	}
 	enqueue(task: Task): boolean {
-        if(this.isFull()) return false
-        this.tasks.push(task)
-        return true
-    };
+		if (this.isFull()) return false;
+		this.tasks.push(task);
+		return true;
+	}
 	dequeue(): Task | undefined {
-        return this.tasks.shift()
-    };
+		return this.tasks.shift();
+	}
 	size(): number {
-        return this.tasks.length
-    };
+		return this.tasks.length;
+	}
 	isFull(): boolean {
-         return this.tasks.length >= this.maxSize
-    };
+		return this.tasks.length >= this.maxSize;
+	}
 }
